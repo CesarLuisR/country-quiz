@@ -2,15 +2,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const useRandomQuestion = (): object | any => {
-  const URL: string = "https://restcountries.eu/rest/v2/all";
   const [question, setQuestion] = useState<object | undefined>();
-
-  const getRandomNumber = (min: number, max: number): number => {
-    return Math.round(Math.random() * (max - min)) + min;
-  };
+  const url = "https://restcountries.eu/rest/v2/all";
 
   const generateQuestion = async (): Promise<void> => {
-    const resp = await axios.get<object[] | any>(URL);
+    const resp = await axios.get<object[] | any>(url);
+
+    const getRandomNumber = (min: number, max: number): number =>
+      Math.round(Math.random() * (max - min)) + min;
 
     const length: number = resp.data.length - 1;
     const randomQuestionNumber: number = getRandomNumber(0, length);
@@ -29,23 +28,20 @@ const useRandomQuestion = (): object | any => {
         region: randomLocation.region,
       });
     }
+
     interface Ifilter {
       type: string;
       falseAnswers: object[];
       trueAnswer: string | any;
     }
 
-    const filterAndSortAnswers = ({
-      type,
-      falseAnswers,
-      trueAnswer,
-    }: Ifilter): Array<string> => {
-      const answers = [...falseAnswers, trueAnswer];
+    const filterAndSortAnswers = (params: Ifilter): Array<string> => {
+      const answers = [...params.falseAnswers, params.trueAnswer];
       let filterAnswers: Array<string> = [""];
 
-      if (type === "name")
+      if (params.type === "name")
         filterAnswers = answers.map((answer) => answer.name || answer);
-      else if (type === "capital")
+      else if (params.type === "capital")
         filterAnswers = answers.map((answer) => answer.capital || answer);
       else filterAnswers = answers.map((answer) => answer.region || answer);
 
