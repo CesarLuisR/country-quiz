@@ -2,10 +2,18 @@
 @import-normalize;
 
 // Fonts
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Poppins:wght@500&display=swap');
 
 // Mini reset
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-size: 12px;
+
+  @media (max-width: 600px) {
+    font-size: 9px;
+  }
 }

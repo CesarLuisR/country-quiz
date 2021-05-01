@@ -1,0 +1,50 @@
+.answer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 0.125rem solid rgba(96, 102, 208, 0.7);
+  box-sizing: border-box;
+  border-radius: 12px;
+  min-height: 3.5rem;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2.25rem;
+  color: rgba(96, 102, 208, 0.8);
+  margin: 1.5625rem 0;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    background: #f9a826;
+    color: #ffffff;
+    border: 0.125rem solid #f9a826;
+  }
+}
+
+.no-answer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 0.125rem solid rgba(96, 102, 208, 0.7);
+  box-sizing: border-box;
+  border-radius: 12px;
+  min-height: 3.5rem;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2.25rem;
+  color: rgba(96, 102, 208, 0.8);
+  margin: 1.5625rem 0;
+  user-select: none;
+}
+
+.letter {
+  padding: 0 1.1875rem;
+  font-size: 24px;
+}
+
+.text {
+  padding: 0 calc(2.9375rem - 1.1875rem);
+  font-size: 1.125rem;
+}

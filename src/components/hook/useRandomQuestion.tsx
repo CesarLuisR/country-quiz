@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useRandomQuestion = (): object | any => {
+const useRandomQuestion = (answers: any): object | any => {
   const [question, setQuestion] = useState<object | undefined>();
   const url = "https://restcountries.eu/rest/v2/all";
 
@@ -16,6 +16,12 @@ const useRandomQuestion = (): object | any => {
 
     const location = await resp.data[randomQuestionNumber];
 
+    interface Ifilter {
+      type: string;
+      falseAnswers: object[];
+      trueAnswer: string | any;
+    }
+
     // falses answers
     let falseAnswers: Array<object> = [];
 
@@ -27,12 +33,6 @@ const useRandomQuestion = (): object | any => {
         name: randomLocation.name,
         region: randomLocation.region,
       });
-    }
-
-    interface Ifilter {
-      type: string;
-      falseAnswers: object[];
-      trueAnswer: string | any;
     }
 
     const filterAndSortAnswers = (params: Ifilter): Array<string> => {
@@ -93,7 +93,7 @@ const useRandomQuestion = (): object | any => {
   useEffect(() => {
     generateQuestion();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [answers]);
 
   if (question) return question;
 };
