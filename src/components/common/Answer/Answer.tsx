@@ -11,11 +11,7 @@ const Answer = (props: any) => {
   return (
     <div
       ref={answerRef}
-      className={
-        typeof props.isCorrect === "string"
-          ? "answer"
-          : "no-answer"
-      }
+      className={typeof props.isCorrect === "string" ? "answer" : "no-answer"}
       onClick={props.click}
     >
       <div className="letter">{props.letter}</div>

@@ -17,22 +17,22 @@ const App: React.FC = (): JSX.Element => {
 
   let data: object | any = useRandomQuestion(answers);
 
-  if (data) console.log(data);
+  // if (data) console.log(data);
 
+  // Aqui estan los posibles bugs
   const handleDataChecker = (e: any): void => {
-    if (!data) return;
     if (typeof isCorrect === "boolean") return;
 
-    let answer: any = e?.target?.children[1];
+    let answer: any = e.target.children[1] || e.target;
 
-    if (answer?.textContent === data.correct) {
+    if (answer.textContent === data.correct) {
       const element = answer.parentElement.style;
       element.background = "#60BF88";
       element.color = "#ffffff";
       element.border = "0.125rem solid #60BF88";
       setIsCorrect(true);
       setNext(true);
-    } else if (answer?.textContent) {
+    } else if (answer.textContent) {
       const element = answer.parentElement.style;
       element.background = "#EA8282";
       element.color = "#ffffff";
@@ -75,7 +75,7 @@ const App: React.FC = (): JSX.Element => {
 
   const handleReset = (): void => {
     setAnswers(initialAnswersState);
-  }
+  };
 
   return (
     <div className="app-container">
