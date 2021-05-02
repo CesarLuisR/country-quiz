@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./styles/App.scss";
 import Card from "./components/layout/Card/Card";
+import WinCard from "./components/layout/WinCard/WinCard";
 import useRandomQuestion from "./components/hook/useRandomQuestion";
 
 const App: React.FC = (): JSX.Element => {
@@ -14,32 +15,44 @@ const App: React.FC = (): JSX.Element => {
   const [next, setNext] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean | string>("default");
 
-  let data = useRandomQuestion(answers);
+  let data: object | any = useRandomQuestion(answers);
 
   if (data) console.log(data);
 
-  const handleDataChecker = (e: any) => {
+  const handleDataChecker = (e: any): void => {
     if (!data) return;
-
     if (typeof isCorrect === "boolean") return;
-    let answer = e?.target?.children[1];
+
+    let answer: any = e?.target?.children[1];
 
     if (answer?.textContent === data.correct) {
-      answer.parentElement.style.background = "#60BF88";
-      answer.parentElement.style.color = "#ffffff";
-      answer.parentElement.style.border = "0.125rem solid #60BF88";
+      const element = answer.parentElement.style;
+      element.background = "#60BF88";
+      element.color = "#ffffff";
+      element.border = "0.125rem solid #60BF88";
       setIsCorrect(true);
       setNext(true);
     } else if (answer?.textContent) {
-      answer.parentElement.style.background = "#EA8282";
-      answer.parentElement.style.color = "#ffffff";
-      answer.parentElement.style.border = "0.125rem solid #EA8282";
+      const element = answer.parentElement.style;
+      element.background = "#EA8282";
+      element.color = "#ffffff";
+      element.border = "0.125rem solid #EA8282";
       setIsCorrect(false);
       setNext(true);
+
+      for (let children of answer.parentElement.parentElement.children) {
+        const checkElement = children.children[1].textContent;
+        if (checkElement === data.correct) {
+          const element = children.children[1].parentElement.style;
+          element.background = "#60BF88";
+          element.color = "#ffffff";
+          element.border = "0.125rem solid #60BF88";
+        }
+      }
     }
   };
 
-  const handleNext = () => {
+  const handleNext = (): void => {
     setNext(false);
     setIsCorrect("default");
 
@@ -60,6 +73,10 @@ const App: React.FC = (): JSX.Element => {
     }
   };
 
+  const handleReset = (): void => {
+    setAnswers(initialAnswersState);
+  }
+
   return (
     <div className="app-container">
       {answers.total <= 9
@@ -73,7 +90,7 @@ const App: React.FC = (): JSX.Element => {
               counter={answers.total}
             />
           )
-        : data && <div>Termino xd</div>}
+        : data && <WinCard data={answers} reset={handleReset} />}
       <footer className="footer">
         Created by Cesar Luis Rijo - devChalleges.io
       </footer>

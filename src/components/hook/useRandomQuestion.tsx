@@ -24,10 +24,21 @@ const useRandomQuestion = (answers: any): object | any => {
 
     // falses answers
     let falseAnswers: Array<object> = [];
+    let toCheckFalseAnswers: string[] = [];
 
-    for (let i: number = 0; i < 3; i++) {
+    for (let i: number = 0; falseAnswers.length < 3; i++) {
       const newRandomQuestionNumber = getRandomNumber(0, length);
       let randomLocation = resp.data[newRandomQuestionNumber];
+
+      // To check
+      const capital = randomLocation.capital;
+
+      if (toCheckFalseAnswers.includes(capital)) {
+        return;
+      } else {
+        toCheckFalseAnswers.push(capital);
+      }
+
       falseAnswers.push({
         capital: randomLocation.capital,
         name: randomLocation.name,
