@@ -17,9 +17,6 @@ const App: React.FC = (): JSX.Element => {
 
   let data: object | any = useRandomQuestion(answers);
 
-  // if (data) console.log(data);
-
-  // Aqui estan los posibles bugs
   const handleDataChecker = (e: any): void => {
     if (typeof isCorrect === "boolean") return;
 
